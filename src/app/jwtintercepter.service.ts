@@ -10,8 +10,7 @@ export class JwtintercepterService implements HttpInterceptor {
   constructor() { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     var currentUser={token:""};
-   
- debugger
+
     var currentUserSession=sessionStorage.getItem("currentUser");
     
     if(currentUserSession!=null)

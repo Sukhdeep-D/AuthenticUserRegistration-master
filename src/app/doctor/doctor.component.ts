@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { debounce } from 'rxjs';
 import { Doctor } from '../doctor';
 import { DoctorService } from '../doctor.service';
 import { LoginService } from '../login.service';
@@ -14,10 +15,11 @@ import { LoginService } from '../login.service';
 export class DoctorComponent implements OnInit {
 
 
-  frameworkComponents: any;
+  
   DoctorList:Doctor[]=[];
   newDoctor:Doctor=new Doctor();
   saveform!: FormGroup
+  submitted: boolean = false;
   constructor(private doctorService:DoctorService,private toastr:ToastrService,private router:Router,private loginService:LoginService,private fb:FormBuilder) 
   {
     this.saveform = this.fb.group({
@@ -25,7 +27,7 @@ export class DoctorComponent implements OnInit {
       qualification:['',[Validators.required,Validators.maxLength(10), Validators.minLength(3)]],
       expierence:['',[Validators.required,Validators.maxLength(25), Validators.minLength(3)]],
       specialisedIn:['',[Validators.required,Validators.maxLength(10), Validators.minLength(3)]],
-// state:['',[Validators.required,Validators.maxLength(10), Validators.minLength(3)]],
+     state:['',[Validators.required,Validators.maxLength(10), Validators.minLength(3)]],
    })
   }
 
@@ -34,17 +36,17 @@ export class DoctorComponent implements OnInit {
   }
 
   getAll()
-{
-   this.doctorService.getAll().subscribe(
-    (response)=>{
-      this.DoctorList=response;
-      console.log(this.DoctorList)
-    },
-    (error)=>{
-      console.log(error);
-    }
-  )
-}
+  {
+     this.doctorService.getAll().subscribe(
+      (response)=>{
+        this.DoctorList=response.data;
+        // console.log(this.DoctorList)
+      },
+      (error)=>{
+        console.log(error);
+      }
+    )
+  }
 
 saveClick()
 {
@@ -89,16 +91,16 @@ updateClick()
   )
 }
 deleteClick(id:number)
-{
- this.doctorService.deleteDoctor(id).subscribe(
-    (response)=>{
-    this.getAll();
-    this.toastr.success("Deleted Successfully!");
-    },
-    (error)=>{
-      console.log(error);
-    }
-   ) 
-}
+  {
+   this.doctorService.deleteDoctor(id).subscribe(
+      (response)=>{
+      this.getAll();
+      this.toastr.success("Deleted Successfully!");
 
+      },
+      (error)=>{
+        console.log(error); 
+      }
+     ) 
+  }
 }
