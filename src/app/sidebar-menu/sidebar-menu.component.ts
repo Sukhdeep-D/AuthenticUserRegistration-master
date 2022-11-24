@@ -8,8 +8,8 @@ import { LoginService } from '../login.service';
   styleUrls: ['./sidebar-menu.component.scss']
 })
 export class SidebarMenuComponent implements OnInit {
-  menuType:String=''
- 
+
+
   constructor(private route:Router,private loginService:LoginService) { }
 
   ngOnInit(): void {
@@ -25,16 +25,30 @@ export class SidebarMenuComponent implements OnInit {
   }
 
   gotoHospital(){
+    
     this.route.navigateByUrl('/hospital');
   }
   gotoDoctor(){
     this.route.navigateByUrl('/doctor');
   }
   gotosign(){
-    this.route.navigateByUrl('/home');
+    this.route.navigateByUrl('/login');
   }
   
-  expansion: any = {};
+  goToAbout()
+  {
+    this.route.navigateByUrl('/about');
+  }
+  gotoAddPlan()
+  {
+    this.route.navigateByUrl('subscription/subscriptionplan');
+  }
+  gotoDisPlan()
+  {
+    this.route.navigateByUrl('subscription');
+  }
+
+
 
  
 }

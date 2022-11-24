@@ -15,6 +15,8 @@ export class UserlistComponent implements OnInit {
   frameworkComponents:any;
  editType:any;
   gridApi: any;
+  rowHeight:any;
+ 
   constructor(private userService:UserService,private router:Router,private loginService:LoginService) 
   {     this.frameworkComponents = {
     
@@ -22,6 +24,8 @@ export class UserlistComponent implements OnInit {
    
     };
     this.editType = "fullRow";
+    this.rowHeight = 70;
+    
   }
     
 
@@ -31,19 +35,19 @@ export class UserlistComponent implements OnInit {
   columnDefs = [
 
     {headerName: 'Name', field: 'name', rowDrag: true,editable:true},
-    {headerName: 'User Name', field: 'userName', editable:true},
-    {headerName: 'Email', field: 'email', editable:true},
+    {headerName: 'User Name', field: 'userName'},
+    {headerName: 'Email', field: 'email'},
     {headerName: 'Address', field: 'streetAddress', editable:true},
     {headerName: 'Phone Number ', field: 'phoneNumber',editable:true},
     {headerName: 'State', field: 'state', editable:true},
     {headerName: 'City', field: 'city',editable:true},
-    {headerName: 'Zip Code', field: 'postalCode'},
+    {headerName: 'Zip Code', field: 'postalCode',editable:true},
     {
       headerName: "Actions",
       field: "action",
       cellRenderer: "rowEditCRenderer",
       cellRendererParams: {
-       
+        cancelOtherRowEditors: this.cancelOtherRowEditors.bind(this)
       },
       width: 180
     } 
@@ -59,7 +63,7 @@ defaultColDef = {
    flex: 1,
      floatingFilter: true,
      resizable: true,
-     editable:true,
+    
     
     
    
@@ -67,6 +71,7 @@ defaultColDef = {
   
   
 };
+
 getAllUser()
 {
   if(this.loginService.isAuthenticated())
@@ -85,14 +90,14 @@ getAllUser()
 
 
   onCellClicked(params:any) {
-    debugger;
-    if(params.node.field !== 'action') {
-      params.data;
-      console.log(params.data)
-       this.cancelOtherRowEditors(params.node.rowIndex);
-    }
+    
+   debugger
+   if(params.node.field !== 'action') {
+      this.cancelOtherRowEditors(params.node.rowIndex);
+   }
   }
-  cancelOtherRowEditors(currentRowIndex:any) {
+
+    cancelOtherRowEditors(currentRowIndex:any) {
     const renderers = this.gridApi.getCellRendererInstances();
     renderers.forEach(function(renderer:any) {
       if(!renderer._agAwareComponent.isNew && 

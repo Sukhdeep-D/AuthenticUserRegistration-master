@@ -34,7 +34,7 @@ city:['',[Validators.required,Validators.maxLength(10), Validators.minLength(3)]
 state:['',[Validators.required,Validators.maxLength(10), Validators.minLength(3)]],
 email:['',[Validators.required,Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}$")]],
 postalCode:['',[Validators.required,Validators.pattern("[0-9]{6}")]],
-password: ['', [Validators.required, Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}$")]],  
+password: ['', [Validators.required, Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$")]],  
    phoneNumber:['',[Validators.required]] 
     }) 
   }

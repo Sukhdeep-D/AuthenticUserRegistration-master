@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'child-cell',
@@ -7,17 +8,15 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
   data-target="#EditModal" data-action-type="view" class="btn btn-success">
   Edit
 </button>
-<button type="button"  *ngIf="isNew == false" (click) = "onUpdateClick()" data-action-type="view" class="btn btn-default">
+<button type="button"  *ngIf="isNew == false" (click) = "onUpdateClick()" data-action-type="view"  class="btn btn-success">
 Update
 </button>
 
-<button type="button" *ngIf="isNew == false" (click) = "onCancelClick()" data-action-type="view" class="btn btn-default">
+<button type="button" *ngIf="isNew == false" (click) = "onCancelClick()" data-action-type="view" class="btn btn-dark">
 Cancel
 </button>
 
-<button type="button"  *ngIf="isNew == true" (click) = "onDeleteClick()" data-action-type="remove" class="btn btn-danger">
-Delete
-</button>
+
 
 
 `,
@@ -28,7 +27,8 @@ export class AddUserComponent implements ICellRendererAngularComp {
   public isNew: any;
   public previousData:any;
  abc:any;
-  constructor() {this.isNew=true }
+  gridApi: any;
+  constructor(private userService:UserService) {this.isNew=true }
 
   agInit(params: any): void {
     debugger
@@ -45,8 +45,8 @@ onEditClick() {
 
   debugger;
 
-  const index = this.params.node.rowIndex;
- // this.params.cancelOtherRowEditors(index);
+  let index = this.params.node.rowIndex;
+// this.params.cancelOtherRowEditors(index);
   this.isNew = false;
   this.previousData = JSON.parse(JSON.stringify(this.params.node.data));
   let cols = this.params.columnApi.getAllGridColumns();
@@ -60,7 +60,7 @@ onEditClick() {
   this.params.api.setFocusedCell(rowIndex, firstCol.colId);
   this.params.api.startEditingCell({
       rowIndex: rowIndex,
-      colKey: "row"
+      colKey: "name"
   });
 
 }
@@ -69,22 +69,43 @@ public invokeParentMethod() {
 }
 
 public onCancelClick() {
+  debugger
   this.isNew = true;
   this.params.node.setData(this.previousData);
   this.params.api.stopEditing(true);
 }
 
-onDeleteClick() {
-const selectedData = [this.params.node.data];
-console.log(selectedData);
-this.params.api.applyTransaction({ remove: selectedData });
-}
+
+// onDeleteClick() {
+// const selectedData = this.params.node.data.email;
+// console.log(selectedData);
+// this.userService.DeleteUser(selectedData).subscribe(
+//   (response)=>{
+
+//   },
+//   (error)=>{
+//     console.log(error);
+//   }
+// )
+
+// }
 onUpdateClick() {
+  debugger;
   this.isNew = true;
-  let obj: any = {};
-  obj.type = "update";
+  let obj: any ;
+  
   this.params.api.stopEditing();
-  obj.selectedData = [this.params.data];
+  obj = this.params.data;
+  this.userService.UpdateUser(obj).subscribe(
+    (response)=>{
+
+    },
+    (error)=>{
+      console.log(error)
+    }
+  )
+
+
   // update logic ....
 }
 }

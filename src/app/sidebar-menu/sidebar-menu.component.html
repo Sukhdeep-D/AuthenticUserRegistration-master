@@ -1,10 +1,11 @@
 
-<div style="width:12%;height:1000px">
+ 
+<div style="width:12%;height:1200px">
   <div class="bg-dark">
-  <div class="sidebar-content" style="height:800px;margin: 0 0 0 0;">
-    <h2 class="set-align"></h2>
+  <div class="sidebar-content" style="height:800px;margin: 0 0 0 0;  top:55px;  background-color: #627a92;">
+    <h1 class="set-align"><b>DashBoard</b></h1>
     <div class="set-sidebar-text" id="testUser">
-      <button class="btn btn-hide text-white" >Users        
+      <button class="btn btn-hide text-white" ><b>Users    </b>    
       </button>
       <div class="set-sidebar-text" id="subMenu1">
         <a  class="btn btn-hide text-white" (click)="gotoUser()">Add Users</a>
@@ -21,8 +22,12 @@
     <div class="set-sidebar-text">
       <input type="radio"  name="clinic"  (click)="gotoUser()">   
       Clinic
-     </div>
-      <div class="set-sidebar-text" id="testdoc">
+   
+      </div>
+     
+
+
+    <div class="set-sidebar-text" id="testdoc">
       <button class="btn btn-hide text-white" >Doctors       
       </button>
       <div class="set-sidebar-text" id="subdoc">
@@ -31,15 +36,25 @@
        </div>
      
     </div>
+    <div class="set-sidebar-text" id="about">
+      <button class="btn btn-hide text-white"  (click)="goToAbout()">About Us       
+      </button>
+      
+     
+    </div>
+    <div class="set-sidebar-text" id="testSubscribe">
+      <button class="btn btn-hide text-white" ><b>Subscription   </b>    
+      </button>
+      <div class="set-sidebar-text" id="subPlan">
+        <a  class="btn btn-hide text-white" (click)="gotoAddPlan()">Add Plan</a><br>
+        <a class="btn btn-hide text-white" (click)="gotoDisPlan()">Plan List</a>
+       </div>
+     
+    </div>
 
-     <div class="set-sidebar-text">
-      <button class="btn btn-hide text-white" (click)="gotosign()">
-      Sign-Out
-      </button> 
-  </div>
+   
   </div>
 
 </div> 
 
     
-   

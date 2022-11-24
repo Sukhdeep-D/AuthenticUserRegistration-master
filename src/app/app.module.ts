@@ -79,6 +79,7 @@ import { AddUserComponent } from './user/add-user/add-user.component';
    TooltipModule.forRoot(),
    ModalModule.forRoot()
    ],
+   
   providers: [{
     provide:HTTP_INTERCEPTORS,
     useClass:JwtintercepterService,
@@ -86,5 +87,6 @@ import { AddUserComponent } from './user/add-user/add-user.component';
   },],
  
   bootstrap: [AppComponent]  
+  
 })
 export class AppModule { }

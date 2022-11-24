@@ -20,4 +20,15 @@ export class UserService {
   {
 return this.httpClient.get("https://localhost:44385/api/Registration/UserList");
   }
+  UpdateUser(register:any):Observable<any>
+  {
+    debugger;
+    return this.httpClient.put<any>("https://localhost:44385/api/Registration/UpdateUser",register)
+   
+  }
+  DeleteUser(Email:any):Observable<any>
+  {debugger
+    return this.httpClient.delete<any>("https://localhost:44385/api/Registration/DeleteUser?REmail="+ Email);
+  }
+
 }
